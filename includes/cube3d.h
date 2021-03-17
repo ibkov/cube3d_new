@@ -124,6 +124,47 @@ typedef struct				s_sprite_data
 	int						sp_y;
 }							t_sprite_data;
 
+typedef struct				s_ray
+{
+	double					planex;
+	double					planey;
+	double					stepx;
+	double					stepy;
+	double					dirx;
+	double					diry;
+	int						tex_x;
+	int						tex_y;
+	double					rposx;
+	double					rposy;
+	double					rdirx;
+	double					rdiry;
+	double					rdisdx;
+	double					rdisdy;
+	double					rdistx;
+	double					rdisty;
+	int						rmapx;
+	int						rmapy;
+	int						wall;
+	int						wstart;
+	int						wend;
+	double					camera;
+	int						hit;
+	double					rh;
+	double					step_tex;
+	double					tex_pos;
+	double					dist;
+	double					speed;
+	double					*zbuffer;
+	int						*sp_order;
+	double					*sp_distance;
+	int						sprite;
+	int						sprite_x;
+	int						sprite_y;
+	double					sprite_dist;
+	double					spstart;
+	double					spend;
+}							t_ray;
+
 typedef	struct				s_engine
 {
 	void					*mlx_ptr;
@@ -140,6 +181,7 @@ typedef	struct				s_engine
 	unsigned int			floor;
 	unsigned int			ceil;
 	int						error;
+	t_ray					ray;
 	t_move					move;
 	t_img					*img;
 	t_tex					*tex_s;

@@ -29,11 +29,55 @@ int check_main_arg(int argc, char **argv)
   return (SUCCESS);
 }
 
-
-int check_map_run(int argc, char **argv)
+char		**map_to_matrix(t_map *lst)
 {
-  
+	t_map	*temp;
+	int		i;
+	int		j;
+	char	**matrix;
+
+	temp = lst;
+	if (!(matrix = malloc(sizeof(char*) * (ft_lst_sz(lst) + 1))))
+		return (NULL);
+	i = 0;
+	while (i < ft_lst_sz(lst))
+	{
+		if (!(matrix[i] = malloc(sizeof(char) * (ft_strlen(temp->line) + 1))))
+			return (NULL);
+		j = 0;
+		while (temp->line[j] != '\0')
+		{
+			matrix[i][j] = temp->line[j];
+			j++;
+		}
+		matrix[i][j] = '\0';
+		temp = temp->next;
+		i++;
+	}
+	return (matrix);
 }
+
+
+void run_game(t_mlx mlx)
+{
+    init_position(&mlx.pos);
+    mlx.mlx_ptr = mlx_init();
+    mlx.win = mlx_new_window(mlx.mlx_ptr, mlx.args.screen_w, mlx.args.screen_h, "Game cube3d school_21");
+    draw_ray_casting(&mlx);
+    mlx_hook(mlx.win, 2, 1L<<0, press_key, &mlx);
+    mlx_put_image_to_window(mlx.mlx_ptr, mlx.win, mlx.img.img_ptr, 0, 0);
+    mlx_loop(mlx.mlx_ptr);
+}
+
+int check_map_run(int argc, char **argv, t_mlx *mlx)
+{
+  argc = 0;
+  printf("%s", argv[0]);
+  mlx->pos.worldMap = map_to_matrix(mlx->args.map);
+  run_game(*mlx);
+  return (SUCCESS);
+}
+
 
 
 int main(int argc, char **argv)
@@ -59,30 +103,7 @@ int main(int argc, char **argv)
   // ft_lstwrite(mlx.args.map);
   if (buffer)
     free(buffer);
-  if (check_map_run(argc, argv) != SUCCESS)
-	  return (MAP_ERROR);
-
-  // if (check_file == -1)
-  //   return (ERROR);
-  
-  
-
-  if (argc == 2)
-  {
-    parcer_map(argv[1], &mlx.pos);
-    // init_map(&mlx.pos);
-    init_position(&mlx.pos);
-    mlx.mlx_ptr = mlx_init();
-    mlx.win = mlx_new_window(mlx.mlx_ptr, mlx.args.screen_w, mlx.args.screen_h, "Game cube3d school_21");
-    draw_ray_casting(&mlx);
-    mlx_hook(mlx.win, 2, 1L<<0, press_key, &mlx);
-    mlx_put_image_to_window(mlx.mlx_ptr, mlx.win, mlx.img.img_ptr, 0, 0);
-    mlx_loop(mlx.mlx_ptr);
-  }
-  else if (argc == 3 && !ft_strncmp(argv[2], "--save", 7))
-    ft_putstr_fd("\033[31mNO ARGUMENTS TO LOAD MAP.\033[0m\n", 1);
-  else
-    ft_putstr_fd("\033[31mNO ARGUMENTS TO LOAD MAP.\033[0m\n", 1);
-
-  return (0);
+  if (check_map_run(argc, argv, &mlx) != SUCCESS)
+	  return (ERROR_MAP);
+  return (SUCCESS);
 }

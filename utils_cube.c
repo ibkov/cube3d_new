@@ -1,5 +1,24 @@
 # include "includes/cube3d.h"
 
+int		ft_lst_sz(t_map *lst)
+{
+	int		count;
+	t_map	*temp;
+
+	temp = lst;
+	count = 0;
+	if (!temp)
+		return (0);
+	while (temp->next)
+	{
+		count++;
+		temp = temp->next;
+	}
+	if (temp->next == NULL)
+		count++;
+	return (count);
+}
+
 t_map	*ft_lstn(char *content)
 {
 	t_map	*new_elem;

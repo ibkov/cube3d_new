@@ -78,7 +78,7 @@ int draw_ray_casting(t_mlx *mlx)
           side = 1;
         }
         //Check if ray has hit a wall
-        if(mlx->pos.worldMap[mapX][mapY] > 0) hit = 1;
+        if(mlx->pos.worldMap[mapX][mapY] == '1') hit = 1;
       }
       //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
       if(side == 0) perpWallDist = (mapX - mlx->pos.posX + (1 - stepX) / 2) / rayDirX;

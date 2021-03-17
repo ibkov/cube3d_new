@@ -2,7 +2,6 @@ NAME = cube3D
 
 SRC = cude.c \
 		proc_keys.c \
-		parcer_map.c \
 		ray_casting.c \
 		parse_texture_path.c \
 		parse_main_arguments.c \

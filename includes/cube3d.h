@@ -17,7 +17,7 @@ typedef	enum				e_error
 	ERROR,
 	SUCCESS,
 	ERROR_ARGUMENTS,
-	
+	ERROR_MAP,
 }							t_error;
 
 typedef struct				s_rgb
@@ -66,10 +66,96 @@ typedef struct	p_gmr
 	double		planeY;
 	double		texWidht;
 	double		texHeight;
-	int 		**worldMap;
+	char 		**worldMap;
 
 	
 }				pos_gamer;
+
+
+typedef struct				s_move
+{
+	int						up;
+	int						down;
+	int						left;
+	int						right;
+	int						step_right;
+	int						step_left;
+	int						collision;
+}							t_move;
+
+
+typedef	struct				s_tex
+{
+	void					*tex_ptr;
+	int						*tex_data;
+	int						bpp;
+	int						size_line;
+	int						endian;
+	int						width;
+	int						height;
+	char					*type;
+	int						sprite_x;
+	int						sprite_y;
+}							t_tex;
+
+typedef	struct				s_sprite
+{
+	double					pos_x;
+	double					pos_y;
+	t_tex					*tex;
+}							t_sprite;
+
+typedef struct				s_sprite_data
+{
+	double					sp_dist;
+	double					spcamx;
+	double					spcamy;
+	double					transx;
+	double					transy;
+	int						spritescreenx;
+	int						sprite_height;
+	int						drawstart_y;
+	int						drawend_y;
+	int						sprite_width;
+	int						drawstart_x;
+	int						drawend_x;
+	int						stripe;
+	int						sp_x;
+	int						sp_y;
+}							t_sprite_data;
+
+typedef	struct				s_engine
+{
+	void					*mlx_ptr;
+	void					*win_ptr;
+	t_arg					arg;
+	char					**map;
+	int						map_height;
+	int						map_width;
+	double					player_x;
+	double					player_y;
+	char					orientation;
+	int						height;
+	int						width;
+	unsigned int			floor;
+	unsigned int			ceil;
+	int						error;
+	t_move					move;
+	t_img					*img;
+	t_tex					*tex_s;
+	t_tex					*tex_n;
+	t_tex					*tex_w;
+	t_tex					*tex_e;
+	t_tex					*tex_sprite;
+	int						save_flag;
+	int						sprite_width;
+	int						sprite_count;
+	t_sprite				*sprite_tab;
+	t_sprite_data			sprite;
+
+}							t_engine;
+
+
 
 typedef struct	s_mlx
 {
@@ -91,5 +177,6 @@ int check_arguments(t_mlx *mlx, char *buffer);
 int check_fc_arg(t_mlx *mlx, char *buffer);
 char *cor_start_ch(char *buffer);
 int map_to_list(t_mlx *mlx, char *buffer);
+int		ft_lst_sz(t_map *lst);
 
 #endif

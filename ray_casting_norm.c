@@ -1,4 +1,4 @@
-#include "cub3d.h"
+# include "includes/cube3d.h"
 
 int			ft_get_tex_height(t_engine *en, char tex)
 {

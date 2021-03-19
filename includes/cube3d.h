@@ -54,6 +54,8 @@ typedef struct	s_img
 	int			size_l;
 	int			bpp;
 	int			endian;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef struct	p_gmr
@@ -169,7 +171,7 @@ typedef	struct				s_engine
 {
 	void					*mlx_ptr;
 	void					*win_ptr;
-	t_arg					arg;
+	t_arg					args;
 	char					**map;
 	int						map_height;
 	int						map_width;
@@ -194,6 +196,7 @@ typedef	struct				s_engine
 	int						sprite_count;
 	t_sprite				*sprite_tab;
 	t_sprite_data			sprite;
+	unsigned int			color;
 
 }							t_engine;
 
@@ -206,6 +209,7 @@ typedef struct	s_mlx
 	t_img		img;
 	pos_gamer	pos;
 	t_arg		args;
+	t_engine    engine;
 }				t_mlx;
 
 
@@ -220,5 +224,14 @@ int check_fc_arg(t_mlx *mlx, char *buffer);
 char *cor_start_ch(char *buffer);
 int map_to_list(t_mlx *mlx, char *buffer);
 int		ft_lst_sz(t_map *lst);
+void		ft_size_ray(t_engine *en);
+char		ft_hit_ray(t_engine *en, char wall_direction);
+char		ray_wall_direction(t_engine *en);
+void		ft_direction_ray(t_engine *en);
+void		ft_wall_tex(t_engine *en, char tex);
+void		ft_init_ray(t_engine *en, int x);
+
+
+
 
 #endif

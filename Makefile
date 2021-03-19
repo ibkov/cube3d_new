@@ -11,6 +11,8 @@ SRC = cude.c \
 		init_begin_position.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
+		ray_casting_norm.c \
+		ray_casting_norme.c \
 
 
 

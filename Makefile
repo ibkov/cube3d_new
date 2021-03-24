@@ -1,18 +1,18 @@
 NAME = cube3D
 
-SRC = cude.c \
-		proc_keys.c \
-		ray_casting.c \
+SRC = 	cube3d.c \
+		check_file.c \
 		parse_texture_path.c \
 		parse_main_arguments.c \
 		parse_floor_ceil.c \
 		parse_map.c \
 		utils_cube.c \
-		init_begin_position.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
 		ray_casting_norm.c \
 		ray_casting_norme.c \
+		errors_print.c \
+		check_error_map.c
 
 
 

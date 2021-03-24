@@ -17,7 +17,18 @@ typedef	enum				e_error
 	ERROR,
 	SUCCESS,
 	ERROR_ARGUMENTS,
+	ERROR_MAIN_ARGUMENTS,
+	ERROR_MANY_ARGUMENTS,
+	ERROR_FEW_ARGUMENTS,
+	ERROR_EXTENSION,
+	ERROR_FLAG_SAVE,
+	ERROR_READING_FILE,
+	ERROR_WRONG_CHAR,
 	ERROR_MAP,
+	ERROR_MAP_MANY_POSITIONS,
+	ERROR_MAP_NO_POSITIONS,
+	ERROR_MAP_NOT_CLOSED,
+
 }							t_error;
 
 typedef struct				s_rgb
@@ -26,6 +37,13 @@ typedef struct				s_rgb
 	int						g;
 	int						b;
 }							t_rgb;
+
+typedef struct	s_stk
+{
+	double			x;
+	double			y;
+	double			d;
+}				t_stk;
 
 typedef struct				s_map
 {
@@ -57,22 +75,6 @@ typedef struct	s_img
 	int			width;
 	int			height;
 }				t_img;
-
-typedef struct	p_gmr
-{
-	double 		posX;
-	double 		posY;
-	double		dirX;
-	double      dirY;
-	double		planeX;
-	double		planeY;
-	double		texWidht;
-	double		texHeight;
-	char 		**worldMap;
-
-	
-}				pos_gamer;
-
 
 typedef struct				s_move
 {
@@ -183,6 +185,7 @@ typedef	struct				s_engine
 	unsigned int			floor;
 	unsigned int			ceil;
 	int						error;
+	t_arg					arg;
 	t_ray					ray;
 	t_move					move;
 	t_img					*img;
@@ -197,41 +200,25 @@ typedef	struct				s_engine
 	t_sprite				*sprite_tab;
 	t_sprite_data			sprite;
 	unsigned int			color;
+	t_stk					*s;
 
 }							t_engine;
 
-
-
-typedef struct	s_mlx
-{
-	void		*mlx_ptr;
-	void		*win;
-	t_img		img;
-	pos_gamer	pos;
-	t_arg		args;
-	t_engine    engine;
-}				t_mlx;
-
-
-int press_key(int keycode, t_mlx *mlx);
-int draw_ray_casting(t_mlx *mlx);
-void parcer_map(char *file_name, pos_gamer *pos);
-int draw_ray_casting(t_mlx *mlx);
-void init_position(pos_gamer *pos);
-int check_texture_arg(t_mlx *mlx, char *buffer);
-int check_arguments(t_mlx *mlx, char *buffer);
-int check_fc_arg(t_mlx *mlx, char *buffer);
-char *cor_start_ch(char *buffer);
-int map_to_list(t_mlx *mlx, char *buffer);
-int		ft_lst_sz(t_map *lst);
+int 		check_texture_arg(t_arg *arg, char *buffer);
+int 		check_arguments(t_arg *arg, char *buffer);
+int 		check_fc_arg(t_arg *arg, char *buffer);
+char 		*cor_start_ch(char *buffer);
+int			map_to_list(t_arg *arg, char *buffer);
+int			ft_lst_sz(t_map *lst);
 void		ft_size_ray(t_engine *en);
 char		ft_hit_ray(t_engine *en, char wall_direction);
 char		ray_wall_direction(t_engine *en);
 void		ft_direction_ray(t_engine *en);
 void		ft_wall_tex(t_engine *en, char tex);
 void		ft_init_ray(t_engine *en, int x);
-
-
-
+int 		error_str(int error);
+int			check_map(t_map *map, int count_pos, int i);
+int 		reading_file_gnl(int fd, char *buffer, t_arg *arg);
+int 		check_main_arg(int argc, char **argv);
 
 #endif

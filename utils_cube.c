@@ -60,8 +60,8 @@ void	ft_lstadd_b(t_map **lst, t_map *new)
 	new->next = 0;
 }
 
-int map_to_list(t_mlx *mlx, char *buffer)
+int map_to_list(t_arg *arg, char *buffer)
 {
-    ft_lstadd_b(&mlx->args.map, ft_lstn(cor_start_ch(buffer))); 
+    ft_lstadd_b(&arg->map, ft_lstn(cor_start_ch(buffer))); 
     return (SUCCESS);
 }
